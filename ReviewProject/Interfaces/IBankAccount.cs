@@ -8,7 +8,7 @@ namespace ReviewProject.Interfaces
     {
         int AccountNumber { get; }
         double Balance { get; }
-        double InterestRate { get; } 
+        double InterestRate { get; set; }
 
         void Deposit(double amount);
         void Withdraw(double amount);
