@@ -17,7 +17,7 @@ namespace XUnitTestProject
             Assert.NotNull(acc);
             Assert.Equal(accountNumber, acc.AccountNumber);
             Assert.Equal(0.0, acc.Balance);
-            Assert.Equal(BankAccount.DEFAULT_INTEREST_RATE, acc.InterestRate);
+            Assert.Equal(BankAccount.DefaultInterestRate, acc.InterestRate);
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace XUnitTestProject
             Assert.NotNull(acc);
             Assert.Equal(accountNumber, acc.AccountNumber);
             Assert.Equal(initialBalance, acc.Balance);
-            Assert.Equal(BankAccount.DEFAULT_INTEREST_RATE, acc.InterestRate);
+            Assert.Equal(BankAccount.DefaultInterestRate, acc.InterestRate);
         }
 
         [Theory]

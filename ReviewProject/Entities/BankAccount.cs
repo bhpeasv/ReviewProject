@@ -1,12 +1,11 @@
 ﻿using ReviewProject.Interfaces;
 using System;
-using System.Collections.Generic;
 
 namespace ReviewProject.Entities
 {
     public class BankAccount : IBankAccount
     {
-        public const double DEFAULT_INTEREST_RATE = 0.01;
+        public const double DefaultInterestRate = 0.01;
 
         private double _interestRate;
 
@@ -22,7 +21,7 @@ namespace ReviewProject.Entities
                 throw new ArgumentException("Invalid Initial Balance");
             AccountNumber = accountNumber;
             Balance = initialBalance;
-            InterestRate = DEFAULT_INTEREST_RATE;
+            InterestRate = DefaultInterestRate;
         }
 
         public int AccountNumber { get; private set; }
