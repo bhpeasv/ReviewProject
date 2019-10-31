@@ -134,17 +134,17 @@ namespace XUnitTestProject
             Assert.Equal(initialBalance, acc.Balance);
         }
 
-        //[Fact]
-        //public void WithdrawAmountExceedingBalance_ExpectArgumentException()
-        //{
-        //    double initialBalance = 123.45;
-        //    IBankAccount acc = new BankAccount(1, initialBalance);
+        [Fact]
+        public void WithdrawAmountExceedingBalance_ExpectArgumentException()
+        {
+            double initialBalance = 123.45;
+            IBankAccount acc = new BankAccount(1, initialBalance);
 
-        //    var ex = Assert.Throws<ArgumentException>(() => acc.Withdraw(initialBalance + 0.01));
+            var ex = Assert.Throws<ArgumentException>(() => acc.Withdraw(initialBalance + 0.01));
 
-        //    Assert.Equal("Amount to withdraw exceeds the balance", ex.Message);
-        //    Assert.Equal(initialBalance, acc.Balance);
-        //}
+            Assert.Equal("Amount to withdraw exceeds the balance", ex.Message);
+            Assert.Equal(initialBalance, acc.Balance);
+        }
 
     }
 }
