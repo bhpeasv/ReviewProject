@@ -1,7 +1,7 @@
-using ReviewProject;
 using ReviewProject.Entities;
 using ReviewProject.Interfaces;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace XUnitTestProject
@@ -12,12 +12,23 @@ namespace XUnitTestProject
         public void CreateBankAccountWithZeroBalanceAndDefaultInterestRate()
         {
             int accountNumber = 1;
+
+            DateTime before = DateTime.Now;
             IBankAccount acc = new BankAccount(accountNumber);
+            DateTime after = DateTime.Now;
 
             Assert.NotNull(acc);
             Assert.Equal(accountNumber, acc.AccountNumber);
             Assert.Equal(0.0, acc.Balance);
             Assert.Equal(BankAccount.DefaultInterestRate, acc.InterestRate);
+            Assert.NotNull(acc.Transactions);
+
+            Assert.True(acc.Transactions.Count == 1);
+            ITransaction t = acc.Transactions[0];
+            Assert.Equal(1, t.Id);
+            Assert.True(before <= t.TransactionTime && t.TransactionTime <= after);
+            Assert.Equal("Bank Account Created", t.Message);
+            Assert.Equal(acc.Balance, t.Amount);
         }
 
         [Fact]
@@ -26,12 +37,22 @@ namespace XUnitTestProject
             int accountNumber = 1;
             double initialBalance = 123.45;
 
+            DateTime before = DateTime.Now;
             IBankAccount acc = new BankAccount(accountNumber, initialBalance);
-
+            DateTime after = DateTime.Now;
+            
             Assert.NotNull(acc);
             Assert.Equal(accountNumber, acc.AccountNumber);
             Assert.Equal(initialBalance, acc.Balance);
             Assert.Equal(BankAccount.DefaultInterestRate, acc.InterestRate);
+            Assert.NotNull(acc.Transactions);
+
+            Assert.True(acc.Transactions.Count == 1);
+            ITransaction t = acc.Transactions[0];
+            Assert.Equal(1, t.Id);
+            Assert.True(before <= t.TransactionTime && t.TransactionTime <= after);
+            Assert.Equal("Bank Account Created", t.Message);
+            Assert.Equal(acc.Balance, t.Amount);
         }
 
         [Theory]
@@ -61,9 +82,18 @@ namespace XUnitTestProject
         public void SetInterestRate(double interestRate)
         {
             IBankAccount acc = new BankAccount(1);
+            int lastTransId = acc.Transactions.Max(tr => tr.Id);
+            
+            DateTime before = DateTime.Now;
             acc.InterestRate = interestRate;
+            DateTime after = DateTime.Now;
 
             Assert.Equal(interestRate, acc.InterestRate);
+            ITransaction t = acc.Transactions[acc.Transactions.Count - 1];
+            Assert.Equal(lastTransId + 1, t.Id);
+            Assert.True(before <= t.TransactionTime && t.TransactionTime <= after);
+            Assert.Equal("Interest Rate changed", t.Message);
+            Assert.Equal(acc.InterestRate, t.Amount);
         }
 
         [Theory]
@@ -88,9 +118,16 @@ namespace XUnitTestProject
             double initialBalance = 123.45;
             IBankAccount acc = new BankAccount(1, initialBalance);
 
+            DateTime before = DateTime.Now;
             acc.Deposit(amount);
+            DateTime after = DateTime.Now;
 
             Assert.Equal(initialBalance + amount, acc.Balance);
+            ITransaction t = acc.Transactions[acc.Transactions.Count - 1];
+            Assert.Equal(acc.Transactions.Count, t.Id);
+            Assert.True(before <= t.TransactionTime && t.TransactionTime <= after);
+            Assert.Equal("Deposit", t.Message);
+            Assert.Equal(amount, t.Amount);
         }
 
         [Theory]
@@ -115,9 +152,16 @@ namespace XUnitTestProject
             double initialBalance = 123.45;
             IBankAccount acc = new BankAccount(1, initialBalance);
 
+            DateTime before = DateTime.Now;
             acc.Withdraw(amount);
+            DateTime after = DateTime.Now;
 
             Assert.Equal(initialBalance - amount, acc.Balance);
+            ITransaction t = acc.Transactions[acc.Transactions.Count - 1];
+            Assert.Equal(acc.Transactions.Count, t.Id);
+            Assert.True(before <= t.TransactionTime && t.TransactionTime <= after);
+            Assert.Equal("Withdraw", t.Message);
+            Assert.Equal(-amount, t.Amount);
         }
 
         [Theory]
