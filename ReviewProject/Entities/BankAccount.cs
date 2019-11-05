@@ -59,8 +59,8 @@ namespace ReviewProject.Entities
         {
             if (amount <= 0)
                 throw new ArgumentException("Amount must be greater than zero");
-            if (amount > Balance)
-                throw new ArgumentException("Amount to withdraw exceeds the balance");
+            //if (amount > Balance)
+            //    throw new ArgumentException("Amount to withdraw exceeds the balance");
             Balance -= amount;
             Transactions.Add(new Transaction(Transactions.Count + 1, "Withdraw", -amount));
         }
