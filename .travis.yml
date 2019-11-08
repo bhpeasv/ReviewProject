@@ -1,7 +1,11 @@
+before_install:
+  - gem install bundler
+
 language: csharp
 solution: ReviewProject.sln
 mono: none
 dotnet: 2.2
+
 script:
  - dotnet restore
  - dotnet build
