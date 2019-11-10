@@ -55,6 +55,7 @@ namespace ReviewProject.Entities
             Transactions.Add(new Transaction(Transactions.Count + 1, "Deposit", amount));
         }
 
+        // a comment
         public void Withdraw(double amount)
         {
             if (amount <= 0)
