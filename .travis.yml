@@ -1,6 +1,3 @@
-before_install:
-  - gem install bundler
-
 language: csharp
 solution: ReviewProject.sln
 mono: none
