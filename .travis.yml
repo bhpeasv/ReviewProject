@@ -1,4 +1,5 @@
 sudo: required
+dist: xenial
 language: csharp
 solution: ReviewProject.sln
 mono: none
@@ -7,7 +8,7 @@ addons:
  snaps:
   - name: dotnet-sdk
     confinement: classic
-    channel: 2.2
+    channel: 2.2/stable
 
 before_script:
  - sudo snap alias dotnet-sdk.dotnet dotnet
