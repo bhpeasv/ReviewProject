@@ -13,12 +13,10 @@ before_script:
  - sudo snap alias dotnet-sdk.dotnet dotnet
 
 env:
- - BUILD: ReviewProject
  - TEST_SUITE: XUnitTestProject
  - TEST_SUITE: NUnitTestProject
- - TEST_SUITE: MSTestProjet
+ - TEST_SUITE: MSUnitTestProjet
 
 script:
- - "dotnet build $BUILD"
- - "dotnet test $TEST_SUITE"
+ - dotnet restore & test $TEST_SUITE
 
