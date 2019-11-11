@@ -6,4 +6,5 @@ cache: ccache
 
 script:
  - dotnet restore
-
+ - dotnet build
+ - dotnet test
