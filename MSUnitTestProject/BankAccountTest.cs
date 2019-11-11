@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MSUnitTestProject
 {
+    [TestClass]
     public class BankAccountTest
     {
         [TestMethod]
@@ -18,17 +19,17 @@ namespace MSUnitTestProject
             DateTime after = DateTime.Now;
 
             Assert.IsNotNull(acc);
-            Assert.Equals(accountNumber, acc.AccountNumber);
-            Assert.Equals(0.0, acc.Balance);
-            Assert.Equals(BankAccount.DefaultInterestRate, acc.InterestRate);
+            Assert.AreEqual(accountNumber, acc.AccountNumber);
+            Assert.AreEqual(0.0, acc.Balance);
+            Assert.AreEqual(BankAccount.DefaultInterestRate, acc.InterestRate);
             Assert.IsNotNull(acc.Transactions);
 
             Assert.IsTrue(acc.Transactions.Count == 1);
             ITransaction t = acc.Transactions[0];
-            Assert.Equals(1, t.Id);
+            Assert.AreEqual(1, t.Id);
             Assert.IsTrue(before <= t.TransactionTime && t.TransactionTime <= after);
-            Assert.Equals("Bank Account Created", t.Message);
-            Assert.Equals(acc.Balance, t.Amount);
+            Assert.AreEqual("Bank Account Created", t.Message);
+            Assert.AreEqual(acc.Balance, t.Amount);
         }
 
         [TestMethod]
@@ -42,17 +43,17 @@ namespace MSUnitTestProject
             DateTime after = DateTime.Now;
             
             Assert.IsNotNull(acc);
-            Assert.Equals(accountNumber, acc.AccountNumber);
-            Assert.Equals(initialBalance, acc.Balance);
-            Assert.Equals(BankAccount.DefaultInterestRate, acc.InterestRate);
+            Assert.AreEqual(accountNumber, acc.AccountNumber);
+            Assert.AreEqual(initialBalance, acc.Balance);
+            Assert.AreEqual(BankAccount.DefaultInterestRate, acc.InterestRate);
             Assert.IsNotNull(acc.Transactions);
 
             Assert.IsTrue(acc.Transactions.Count == 1);
             ITransaction t = acc.Transactions[0];
-            Assert.Equals(1, t.Id);
+            Assert.AreEqual(1, t.Id);
             Assert.IsTrue(before <= t.TransactionTime && t.TransactionTime <= after);
-            Assert.Equals("Bank Account Created", t.Message);
-            Assert.Equals(acc.Balance, t.Amount);
+            Assert.AreEqual("Bank Account Created", t.Message);
+            Assert.AreEqual(acc.Balance, t.Amount);
         }
 
         [DataTestMethod]
@@ -63,7 +64,7 @@ namespace MSUnitTestProject
             IBankAccount acc = null;
             var ex = Assert.ThrowsException<ArgumentException>(() => acc = new BankAccount(accNumber));
             Assert.IsNull(acc);
-            Assert.Equals("Invalid Account Number", ex.Message);
+            Assert.AreEqual("Invalid Account Number", ex.Message);
         }
 
         [TestMethod]
@@ -73,7 +74,7 @@ namespace MSUnitTestProject
             double initialBalance = -0.01;
             var ex = Assert.ThrowsException<ArgumentException>(() => acc = new BankAccount(1, initialBalance));
             Assert.IsNull(acc);
-            Assert.Equals("Invalid Initial Balance", ex.Message);
+            Assert.AreEqual("Invalid Initial Balance", ex.Message);
         }
 
         [DataTestMethod]
@@ -88,12 +89,12 @@ namespace MSUnitTestProject
             acc.InterestRate = interestRate;
             DateTime after = DateTime.Now;
 
-            Assert.Equals(interestRate, acc.InterestRate);
+            Assert.AreEqual(interestRate, acc.InterestRate);
             ITransaction t = acc.Transactions[acc.Transactions.Count - 1];
-            Assert.Equals(lastTransId + 1, t.Id);
+            Assert.AreEqual(lastTransId + 1, t.Id);
             Assert.IsTrue(before <= t.TransactionTime && t.TransactionTime <= after);
-            Assert.Equals("Interest Rate changed", t.Message);
-            Assert.Equals(acc.InterestRate, t.Amount);
+            Assert.AreEqual("Interest Rate changed", t.Message);
+            Assert.AreEqual(acc.InterestRate, t.Amount);
         }
 
         [DataTestMethod]
@@ -106,8 +107,8 @@ namespace MSUnitTestProject
 
             var ex = Assert.ThrowsException<ArgumentException>(() => acc.InterestRate = interestRate);
 
-            Assert.Equals("Invalid Interest Rate", ex.Message);
-            Assert.Equals(oldInterestRate, acc.InterestRate);
+            Assert.AreEqual("Invalid Interest Rate", ex.Message);
+            Assert.AreEqual(oldInterestRate, acc.InterestRate);
         }
 
         [DataTestMethod]
@@ -122,12 +123,12 @@ namespace MSUnitTestProject
             acc.Deposit(amount);
             DateTime after = DateTime.Now;
 
-            Assert.Equals(initialBalance + amount, acc.Balance);
+            Assert.AreEqual(initialBalance + amount, acc.Balance);
             ITransaction t = acc.Transactions[acc.Transactions.Count - 1];
-            Assert.Equals(acc.Transactions.Count, t.Id);
+            Assert.AreEqual(acc.Transactions.Count, t.Id);
             Assert.IsTrue(before <= t.TransactionTime && t.TransactionTime <= after);
-            Assert.Equals("Deposit", t.Message);
-            Assert.Equals(amount, t.Amount);
+            Assert.AreEqual("Deposit", t.Message);
+            Assert.AreEqual(amount, t.Amount);
         }
 
         [DataTestMethod]
@@ -140,8 +141,8 @@ namespace MSUnitTestProject
 
             var ex = Assert.ThrowsException<ArgumentException>(() => acc.Deposit(amount));
 
-            Assert.Equals("Amount must be greater than zero", ex.Message);
-            Assert.Equals(initialBalance, acc.Balance);
+            Assert.AreEqual("Amount must be greater than zero", ex.Message);
+            Assert.AreEqual(initialBalance, acc.Balance);
         }
 
         [DataTestMethod]
@@ -156,12 +157,12 @@ namespace MSUnitTestProject
             acc.Withdraw(amount);
             DateTime after = DateTime.Now;
 
-            Assert.Equals(initialBalance - amount, acc.Balance);
+            Assert.AreEqual(initialBalance - amount, acc.Balance);
             ITransaction t = acc.Transactions[acc.Transactions.Count - 1];
-            Assert.Equals(acc.Transactions.Count, t.Id);
+            Assert.AreEqual(acc.Transactions.Count, t.Id);
             Assert.IsTrue(before <= t.TransactionTime && t.TransactionTime <= after);
-            Assert.Equals("Withdraw", t.Message);
-            Assert.Equals(-amount, t.Amount);
+            Assert.AreEqual("Withdraw", t.Message);
+            Assert.AreEqual(-amount, t.Amount);
         }
 
         [DataTestMethod]
@@ -174,8 +175,8 @@ namespace MSUnitTestProject
 
             var ex = Assert.ThrowsException<ArgumentException>(() => acc.Withdraw(amount));
 
-            Assert.Equals("Amount must be greater than zero", ex.Message);
-            Assert.Equals(initialBalance, acc.Balance);
+            Assert.AreEqual("Amount must be greater than zero", ex.Message);
+            Assert.AreEqual(initialBalance, acc.Balance);
         }
 
         [TestMethod]
@@ -186,8 +187,8 @@ namespace MSUnitTestProject
 
             var ex = Assert.ThrowsException<ArgumentException>(() => acc.Withdraw(initialBalance + 0.01));
 
-            Assert.Equals("Amount to withdraw exceeds the balance", ex.Message);
-            Assert.Equals(initialBalance, acc.Balance);
+            Assert.AreEqual("Amount to withdraw exceeds the balance", ex.Message);
+            Assert.AreEqual(initialBalance, acc.Balance);
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MSUnitTestProject
 {
+    [TestClass]
     public class TransactionTest
     {
         [TestMethod]
@@ -18,10 +19,10 @@ namespace MSUnitTestProject
             ITransaction t = new Transaction(transId, message, amount);
             DateTime after = DateTime.Now;
 
-            Assert.Equals(transId, t.Id);
+            Assert.AreEqual(transId, t.Id);
             Assert.IsTrue(before <= t.TransactionTime && t.TransactionTime <= after);
-            Assert.Equals(message, t.Message);
-            Assert.Equals(amount, t.Amount);
+            Assert.AreEqual(message, t.Message);
+            Assert.AreEqual(amount, t.Amount);
         }
 
         [DataTestMethod]
@@ -34,9 +35,9 @@ namespace MSUnitTestProject
             var ex = Assert.ThrowsException<ArgumentException>(() => t = new Transaction(transId, "Message", 123.45));
 
             Assert.IsNull(t);
-            Assert.Equals("Invalid Transaction Id", ex.Message);
+            Assert.AreEqual("Invalid Transaction Id", ex.Message);
             Assert.IsNull(t);
-            Assert.Equals("Invalid Transaction Id", ex.Message);
+            Assert.AreEqual("Invalid Transaction Id", ex.Message);
         }
 
         [DataTestMethod]
@@ -49,7 +50,7 @@ namespace MSUnitTestProject
             var ex = Assert.ThrowsException<ArgumentException>(() => t = new Transaction(1, message, 123.45));
 
             Assert.IsNull(t);
-            Assert.Equals("Transaction Message is missing or empty", ex.Message);
+            Assert.AreEqual("Transaction Message is missing or empty", ex.Message);
         }
 
     }
