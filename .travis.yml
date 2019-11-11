@@ -3,6 +3,7 @@ language: csharp
 solution: ReviewProject.sln
 mono: none
 
+
 addons:
  snaps:
   - name: dotnet-sdk
