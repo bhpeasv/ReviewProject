@@ -3,20 +3,15 @@ language: csharp
 solution: ReviewProject.sln
 mono: none
 dotnet: 2.2
+
 addons:
  snaps:
   - name: dotnet-sdk
-    classic: true
-    channel: latest
-cache: 
- - ccache: true
+    confinement: classic
+    channel: latest/stable
+  - sudo snap alias dotnet-sdk.dotnet dotnet
 
-jobs:
-  include:
-   - name: build and test
-     before_script:
-      - sudo snap alias dotnet-sdk.dotnet dotnet
-     script:
-      - dotnet restore
-      - dotnet build
-      - dotnet test 
+script:
+ - dotnet restore
+ - dotnet build
+ - dotnet test 
