@@ -1,5 +1,4 @@
 sudo: required
-dist: xenial
 language: csharp
 solution: ReviewProject.sln
 mono: none
@@ -14,6 +13,5 @@ before_script:
  - sudo snap alias dotnet-sdk.dotnet dotnet
 
 script:
- - dotnet restore
  - dotnet build
  - dotnet test 
