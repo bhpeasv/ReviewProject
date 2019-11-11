@@ -3,6 +3,9 @@ language: csharp
 solution: ReviewProject.sln
 mono: none
 
+before_install:
+ - gem install bundler
+
 addons:
  snaps:
   - name: dotnet-sdk
