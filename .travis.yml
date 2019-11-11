@@ -15,7 +15,7 @@ before_script:
 env:
  - TEST_SUITE: XUnitTestProject
  - TEST_SUITE: NUnitTestProject
- - TEST_SUITE: MSUnitTestProjet
+ - TEST_SUITE: MSUnitTestProject
 
 script:
  - dotnet test $TEST_SUITE
