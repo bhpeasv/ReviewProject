@@ -2,14 +2,13 @@ sudo: required
 language: csharp
 solution: ReviewProject.sln
 mono: none
-dotnet: 2.2
 
 addons:
  snaps:
   - name: dotnet-sdk
     confinement: classic
     channel: latest/stable
-  - sudo snap alias dotnet-sdk.dotnet dotnet
+    - sudo snap alias dotnet-sdk.dotnet dotnet
 
 script:
  - dotnet restore
