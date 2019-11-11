@@ -1,9 +1,22 @@
+sudo: required
 language: csharp
 solution: ReviewProject.sln
 mono: none
 dotnet: 2.2
+addons:
+ snaps:
+  - name: dotnet-sdk
+    classic: true
+    channel: latest
+cache: 
+ - ccache: true
 
-script:
- - dotnet restore
- - dotnet build
- - dotnet test 
+jobs:
+  include:
+   - name: build and test
+     before_script:
+      - sudo snap alias dotnet-sdk.dotnet dotnet
+     script:
+      - dotnet restore
+      - dotnet build
+      - dotnet test 
