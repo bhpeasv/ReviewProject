@@ -19,6 +19,6 @@ env:
  - TEST_SUITE: MSTestProjet
 
 script:
- - "bundle exec dotnet build $BUILD"
- - "bundle exec dotnet test $TEST_SUITE"
+ - "dotnet build $BUILD"
+ - "dotnet test $TEST_SUITE"
 
