@@ -1,13 +1,13 @@
 ﻿using System;
 using ReviewProject.Entities;
 using ReviewProject.Interfaces;
-using Xunit;
+using NUnit.Framework;
 
-namespace XUnitTestProject
+namespace NUnitTestProject
 {
     public class TransactionTest
     {
-        [Fact]
+        [Test]
         public void CreateTransaction()
         {
             int transId = 1;
@@ -18,15 +18,15 @@ namespace XUnitTestProject
             ITransaction t = new Transaction(transId, message, amount);
             DateTime after = DateTime.Now;
 
-            Assert.Equal(transId, t.Id);
+            Assert.AreEqual(transId, t.Id);
             Assert.True(before <= t.TransactionTime && t.TransactionTime <= after);
-            Assert.Equal(message, t.Message);
-            Assert.Equal(amount, t.Amount);
+            Assert.AreEqual(message, t.Message);
+            Assert.AreEqual(amount, t.Amount);
         }
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
+        
+        [TestCase(0)]
+        [TestCase(-1)]
         public void CreateTransaction_InvalidId_ExpectArgumentException(int transId)
         {
             ITransaction t = null;
@@ -34,14 +34,14 @@ namespace XUnitTestProject
             var ex = Assert.Throws<ArgumentException>(() => t = new Transaction(transId, "Message", 123.45));
 
             Assert.Null(t);
-            Assert.Equal("Invalid Transaction Id", ex.Message);
+            Assert.AreEqual("Invalid Transaction Id", ex.Message);
             Assert.Null(t);
-            Assert.Equal("Invalid Transaction Id", ex.Message);
+            Assert.AreEqual("Invalid Transaction Id", ex.Message);
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
+        
+        [TestCase(null)]
+        [TestCase("")]
         public void CreateTransaction_MessageEmptyOrNull_ExpectArgumentException(string message)
         {
             ITransaction t = null;
@@ -49,7 +49,7 @@ namespace XUnitTestProject
             var ex = Assert.Throws<ArgumentException>(() => t = new Transaction(1, message, 123.45));
 
             Assert.Null(t);
-            Assert.Equal("Transaction Message is missing or empty", ex.Message);
+            Assert.AreEqual("Transaction Message is missing or empty", ex.Message);
         }
 
     }
