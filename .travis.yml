@@ -4,7 +4,9 @@ mono: none
 dotnet: 2.2
 cache: ccache
 
+install:
+- dotnet restore
+
 script:
- - dotnet restore
  - dotnet build
- - dotnet test
+ - dotnet test 
