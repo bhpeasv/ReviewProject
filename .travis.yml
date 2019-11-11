@@ -12,6 +12,13 @@ addons:
 before_script:
  - sudo snap alias dotnet-sdk.dotnet dotnet
 
+env:
+ - BUILD: ReviewProject
+ - TEST_SUITE: XUnitTestProject
+ - TEST_SUITE: NUnitTestProject
+ - TEST_SUITE: MSTestProjet
+
 script:
- - dotnet build
- - dotnet test
+ - "bundle exec rake dotnet build $BUILD"
+ - "bundle exec rake dotnet test $TEST_SUITE"
+
