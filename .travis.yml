@@ -3,13 +3,14 @@ language: csharp
 solution: ReviewProject.sln
 mono: none
 
-
 addons:
  snaps:
   - name: dotnet-sdk
     confinement: classic
     channel: latest/stable
-    - sudo snap alias dotnet-sdk.dotnet dotnet
+
+before_script:
+ - sudo snap alias dotnet-sdk.dotnet dotnet
 
 script:
  - dotnet restore
