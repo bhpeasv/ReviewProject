@@ -12,5 +12,11 @@ addons:
 before_script:
  - sudo snap alias dotnet-sdk.dotnet dotnet
 
+env:
+ - TEST_SUITE: XUnitTestProject
+ - TEST_SUITE: NUnitTestProject
+ - TEST_SUITE: MSUnitTestProject
+
 script:
- - dotnet test
+ - dotnet test $TEST_SUITE
+
