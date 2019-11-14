@@ -3,15 +3,23 @@ language: csharp
 solution: ReviewProject.sln
 mono: none
 
+before_install:
+ - gem install bundler
+
 addons:
  snaps:
   - name: dotnet-sdk
     confinement: classic
     channel: 2.2/stable
 
+env:
+ - TEST_SUITE: MSUnitTestProject
+ - TEST_SUITE: NUnitTestProject
+ - TEST_SUITE: XUnitTestProject
+
 before_script:
  - sudo snap alias dotnet-sdk.dotnet dotnet
 
 script:
  - dotnet build
- - dotnet test
+ - "bundle exec rake test: $TEST_SUITE"
