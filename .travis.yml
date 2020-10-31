@@ -10,7 +10,7 @@ addons:
  snaps:
   - name: dotnet-sdk
     confinement: classic
-    channel: 2.2/stable
+    channel: lts/stable
 
 env:
  - TEST_SUITE: MSUnitTestProject
